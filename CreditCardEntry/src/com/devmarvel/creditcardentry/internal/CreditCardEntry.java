@@ -140,8 +140,8 @@ public class CreditCardEntry extends HorizontalScrollView implements
         if (textColor != null) {
             textFourDigits.setTextColor(textColor);
         }
-        textFourDigits.setMinWidth(measureTextWidth(textFourDigits, "4242"));
-        container.addView(textFourDigits);
+        int fourCharsWidth = measureTextWidth(textFourDigits, "4242");
+        textFourDigits.setMinWidth(fourCharsWidth);
 
         expDateText = new ExpDateText(context, attrs);
         expDateText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
@@ -184,6 +184,7 @@ public class CreditCardEntry extends HorizontalScrollView implements
         zipCodeText = new ZipCodeText(context, attrs);
         zipCodeText.setId(R.id.cc_zip);
         zipCodeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        zipCodeText.setMinWidth(fourCharsWidth / 4 * 8);
         if (includeZip) {
             zipCodeText.setDelegate(this);
             container.addView(zipCodeText);
