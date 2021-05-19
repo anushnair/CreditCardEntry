@@ -141,8 +141,8 @@ public class CreditCardEntry extends HorizontalScrollView implements
         if (textColor != null) {
             textFourDigits.setTextColor(textColor);
         }
-        int fourCharsWidth = measureTextWidth(textFourDigits, "4242");
-        textFourDigits.setMinWidth(fourCharsWidth);
+        int zipCodeCharsWidth = measureTextWidth(textFourDigits, "42424242");
+        textFourDigits.setMinWidth(zipCodeCharsWidth);
 
         expDateText = new ExpDateText(context, attrs);
         expDateText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
@@ -186,7 +186,7 @@ public class CreditCardEntry extends HorizontalScrollView implements
         zipCodeText.setId(R.id.cc_zip);
         zipCodeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         zipCodeText.setInputType(InputType.TYPE_CLASS_TEXT);
-        zipCodeText.setMinWidth(fourCharsWidth / 4 * 8);
+        zipCodeText.setMinWidth(zipCodeCharsWidth / 4 * 8);
         if (includeZip) {
             zipCodeText.setDelegate(this);
             container.addView(zipCodeText);
@@ -324,14 +324,14 @@ public class CreditCardEntry extends HorizontalScrollView implements
 
     public void focusOnField(final CreditEntryFieldBase field, String initialFieldValue) {
         field.requestFocus();
-        if(!scrolling) {
+        if (!scrolling) {
             scrolling = true;
             scrollToTarget(field instanceof CreditCardText ? 0 : field.getLeft(), new Runnable() {
                 @Override
                 public void run() {
                     scrolling = false;
                     // if there was another focus before we were done.. catch up.
-                    if(!field.hasFocus()) {
+                    if (!field.hasFocus()) {
                         View newFocus = getFocusedChild();
                         if (newFocus instanceof CreditEntryFieldBase) {
                             focusOnField((CreditEntryFieldBase) newFocus);
@@ -341,7 +341,7 @@ public class CreditCardEntry extends HorizontalScrollView implements
             });
         }
 
-        if(initialFieldValue != null && initialFieldValue.length() > 0) {
+        if (initialFieldValue != null && initialFieldValue.length() > 0) {
             field.formatAndSetText(initialFieldValue);
         }
 
@@ -360,7 +360,7 @@ public class CreditCardEntry extends HorizontalScrollView implements
 
     private void scrollToTarget(int target, final Runnable after) {
         int scrollX = getScrollX();
-        if(scrollX == target) {
+        if (scrollX == target) {
             if (after != null) after.run();
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
@@ -396,7 +396,7 @@ public class CreditCardEntry extends HorizontalScrollView implements
         }
     }
 
-    private int measureTextWidth(TextView textView, String text){
+    private int measureTextWidth(TextView textView, String text) {
         Paint p = new Paint();
         Rect bounds = new Rect();
         p.setTextSize(textSize);
@@ -493,11 +493,25 @@ public class CreditCardEntry extends HorizontalScrollView implements
                 delegate.onBadInput(field);
             }
 
-            @Override public void onExpirationDateValid(String remainder) {}
-            @Override public void onSecurityCodeValid(String remainder) {}
-            @Override public void onZipCodeValid() { }
-            @Override public void focusOnField(CreditEntryFieldBase field, String initialValue) { }
-            @Override public void focusOnPreviousField(CreditEntryFieldBase field) { }
+            @Override
+            public void onExpirationDateValid(String remainder) {
+            }
+
+            @Override
+            public void onSecurityCodeValid(String remainder) {
+            }
+
+            @Override
+            public void onZipCodeValid() {
+            }
+
+            @Override
+            public void focusOnField(CreditEntryFieldBase field, String initialValue) {
+            }
+
+            @Override
+            public void focusOnPreviousField(CreditEntryFieldBase field) {
+            }
         };
     }
 
@@ -625,14 +639,17 @@ public class CreditCardEntry extends HorizontalScrollView implements
     }
 
     @Override
-    public void onLongPress(MotionEvent e) {}
+    public void onLongPress(MotionEvent e) {
+    }
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         return false;
     }
 
-    @Override public void onShowPress(MotionEvent e) {}
+    @Override
+    public void onShowPress(MotionEvent e) {
+    }
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
@@ -672,7 +689,9 @@ public class CreditCardEntry extends HorizontalScrollView implements
         });
     }
 
-    /** helper & hint setting **/
+    /**
+     * helper & hint setting
+     **/
 
     public void setCreditCardTextHelper(String text) {
         creditCardText.setHelperText(text);
