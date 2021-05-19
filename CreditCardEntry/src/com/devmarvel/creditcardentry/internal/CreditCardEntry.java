@@ -19,6 +19,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.os.ParcelableCompat;
 import android.support.v4.os.ParcelableCompatCreatorCallbacks;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
@@ -184,6 +185,7 @@ public class CreditCardEntry extends HorizontalScrollView implements
         zipCodeText = new ZipCodeText(context, attrs);
         zipCodeText.setId(R.id.cc_zip);
         zipCodeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        zipCodeText.setInputType(InputType.TYPE_CLASS_TEXT);
         zipCodeText.setMinWidth(fourCharsWidth / 4 * 8);
         if (includeZip) {
             zipCodeText.setDelegate(this);
