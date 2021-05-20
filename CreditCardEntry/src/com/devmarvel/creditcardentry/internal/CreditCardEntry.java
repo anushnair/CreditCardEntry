@@ -185,7 +185,7 @@ public class CreditCardEntry extends HorizontalScrollView implements
         zipCodeText = new ZipCodeText(context, attrs);
         zipCodeText.setId(R.id.cc_zip);
         zipCodeText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-        zipCodeText.setInputType(InputType.TYPE_CLASS_TEXT);
+        zipCodeText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
         zipCodeText.setMinWidth(zipCodeCharsWidth / 4 * 8);
         if (includeZip) {
             zipCodeText.setDelegate(this);
